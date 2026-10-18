@@ -1,99 +1,105 @@
 # CodeNova Batch 01 — Full Stack Development Task 1: Notes Application
 
-Ye ek local full stack project hai: React + Vite frontend, Python + FastAPI backend, aur SQLite database. Notes create, view, edit, delete aur title/content se instant search ho sakti hain. Data backend/notes.db mein rehta hai; app shuru hotay hi table khud banti hai.
+This is a local full-stack application built with a React + Vite frontend, a Python + FastAPI backend, and a SQLite database. You can create, view, edit, and delete notes, and instantly search their titles and content. Data is stored in `backend/notes.db`, and the notes table is created automatically when the application starts.
 
-## Aaj ke tool checks
+## Required Tools
 
-- Node.js aur npm frontend chalate hain.
-- Python backend chalata hai. Is machine par python/py PATH mein nahin mile, is liye START_HERE.md mein available bundled Python ka exact path diya hai.
-- Git version history ke liye hai. Is project ko GitHub par push karna zaroori nahin.
+- **Node.js and npm** run the frontend.
+- **Python** runs the backend. On the computer used for the original setup, neither `python` nor `py` was available on PATH, so `START_HERE.md` includes the exact path to the available bundled Python interpreter.
+- **Git** records version history. You can run this project locally without pushing it to GitHub.
 
-## Folder map
+## Folder Map
 
-| File/folder | Seedha matlab |
+| File/folder | Purpose |
 | --- | --- |
-| START_HERE.md | VS Code mein pehli dafa chalane ki short guide |
-| backend/app/main.py | API routes, validation aur note operations |
-| backend/app/database.py | SQLite connection aur database setup |
-| backend/schema.sql | notes table ka design |
-| backend/requirements.txt | backend chalane ke Python packages |
-| backend/requirements-dev.txt | tests ke extra packages |
-| backend/tests/test_api.py | API ka create/edit/delete, error aur persistence test |
-| frontend/src/App.jsx | screen, form, search, messages aur note cards |
-| frontend/src/api.js | browser se API request aur readable errors |
-| frontend/src/styles.css | responsive layout |
-| frontend/vite.config.js | frontend dev server aur /api proxy |
-| frontend/package.json | npm dependencies aur scripts |
-| .gitignore | local database, virtual environment aur build ko Git se bahar rakhta hai |
+| START_HERE.md | A short guide to running the project in VS Code for the first time |
+| backend/app/main.py | API routes, validation, and note operations |
+| backend/app/database.py | SQLite connection and database setup |
+| backend/schema.sql | The notes table schema |
+| backend/requirements.txt | Python packages required to run the backend |
+| backend/requirements-dev.txt | Additional packages required for testing |
+| backend/tests/test_api.py | API tests for creating, editing, and deleting notes, error handling, and data persistence |
+| frontend/src/App.jsx | The application screen, form, search, messages, and note cards |
+| frontend/src/api.js | API requests from the browser and readable error messages |
+| frontend/src/styles.css | Responsive layout |
+| frontend/vite.config.js | Frontend development server and `/api` proxy |
+| frontend/package.json | npm dependencies and scripts |
+| .gitignore | Excludes the local database, virtual environment, and build output from Git |
 
-## Commands ka matlab
+## What the Commands Do
 
-Ye sab commands VS Code ke PowerShell terminal mein chalao. Exact start commands START_HERE.md mein hain.
+Run these commands in the VS Code PowerShell terminal. See `START_HERE.md` for the exact startup commands.
 
-| Command | Kya karta hai |
+| Command | Purpose |
 | --- | --- |
-| cd 'folder' | terminal ko us folder mein le jata hai |
-| python --version / node --version / npm --version / git --version | tool installed hai ya nahin, check karta hai |
-| & 'Python ka path' -m venv .venv | backend ke andar alag Python environment banata hai |
-| .\.venv\Scripts\python.exe -m pip install -r requirements.txt | backend packages install karta hai |
-| .\.venv\Scripts\python.exe -m uvicorn app.main:app --reload --host 127.0.0.1 --port 8000 | backend local port 8000 par chalata hai; file badle to reload hota hai |
-| npm install | frontend packages install karta hai |
-| npm run dev | frontend local port 5173 par chalata hai |
-| .\.venv\Scripts\python.exe -m pytest -q | backend API tests chalata hai (pehle requirements-dev.txt install karo) |
-| npm run build | frontend ka production build check karta hai |
+| cd 'folder' | Changes the terminal's current folder |
+| python --version / node --version / npm --version / git --version | Checks whether a tool is installed and displays its version |
+| & 'Path to Python' -m venv .venv | Creates a separate Python environment inside the backend folder |
+| .\.venv\Scripts\python.exe -m pip install -r requirements.txt | Installs the backend packages |
+| .\.venv\Scripts\python.exe -m uvicorn app.main:app --reload --host 127.0.0.1 --port 8000 | Runs the backend locally on port 8000 and reloads it when files change |
+| npm install | Installs the frontend packages |
+| npm run dev | Runs the frontend locally on port 5173 |
+| .\.venv\Scripts\python.exe -m pytest -q | Runs the backend API tests; install `requirements-dev.txt` first |
+| npm run build | Checks that the frontend production build succeeds |
 
-Har running server ko rokne ke liye us ke terminal mein Ctrl+C dabao. Dono servers saath chalne chahiye.
+To stop a running server, press **Ctrl+C** in its terminal. Both servers must be running to use the application.
 
-## Browser mein kya dekhna hai
+## What to Check in the Browser
 
-1. http://127.0.0.1:8000/api/health par JSON {"status":"ok"} aayega.
-2. http://127.0.0.1:5173 par Notes screen aayegi.
-3. Title aur content likh kar Save note dabao. Success message aur card aayega.
-4. Card ka Edit dabao, text badlo, Update note dabao. Card naya text dikhayega.
-5. Search box mein title ya content ka lafz likho. Matching cards foran dikhengi.
-6. Delete dabao. Browser confirmation mein OK karne par card hat jayega.
-7. Browser refresh karo ya backend restart karo. Jo notes delete nahin hue, woh database se dobara dikhengi.
-8. Backend rok kar save karo. Error message aayega aur form mein likha draft rahega. Backend dobara chala kar Save note retry karo.
+1. Open http://127.0.0.1:8000/api/health. The expected JSON response is `{"status":"ok"}`.
+2. Open http://127.0.0.1:5173 to view the Notes screen.
+3. Enter a title and content, then click **Save note**. A success message and a new note card should appear.
+4. Click **Edit** on a card, change the text, and click **Update note**. The card should display the updated text.
+5. Type a word from a note's title or content into the search box. Matching cards should appear immediately.
+6. Click **Delete**, then click **OK** in the browser confirmation dialog. The card should disappear.
+7. Refresh the browser or restart the backend. Notes that have not been deleted should reappear from the database.
+8. Stop the backend and try saving a note. An error message should appear, and your draft should remain in the form. Restart the backend and click **Save note** to retry.
 
 ## API
 
-| Method | Route | Kaam |
+| Method | Route | Purpose |
 | --- | --- | --- |
-| GET | /api/health | server check |
-| GET | /api/notes | saari notes, nayi update pehle |
-| POST | /api/notes | note banao |
-| GET | /api/notes/{id} | ek note lo |
-| PUT | /api/notes/{id} | note update karo |
-| DELETE | /api/notes/{id} | note delete karo |
+| GET | /api/health | Check whether the server is running |
+| GET | /api/notes | Retrieve all notes, with the most recently updated first |
+| POST | /api/notes | Create a note |
+| GET | /api/notes/{id} | Retrieve a single note |
+| PUT | /api/notes/{id} | Update a note |
+| DELETE | /api/notes/{id} | Delete a note |
 
-POST aur PUT ka JSON example:
+Example JSON body for POST and PUT requests:
 
-    {"title":"Meri pehli note","content":"Aaj FastAPI seekha."}
+```json
+{"title":"My first note","content":"Today I learned FastAPI."}
+```
 
-Title 1 se 120 non-space characters, content 1 se 5000 non-space characters hona chahiye. Browser aur server dono check karte hain. Invalid input par API 422 deti hai. Missing note par 404 milta hai. Search browser mein loaded notes par hoti hai, is liye type karte hi result badalta hai.
+After trimming leading and trailing whitespace, the title must contain 1–120 characters and the content must contain 1–5,000 characters. Both the browser and the server validate input. The API returns **422** for invalid input and **404** when a note is not found. Search runs in the browser on the loaded notes, so the results update as you type.
 
-## Tests aur database
+## Tests and Database
 
-Backend terminal mein:
+In the backend terminal:
 
-    .\.venv\Scripts\python.exe -m pip install -r requirements-dev.txt
-    .\.venv\Scripts\python.exe -m pytest -q
+```powershell
+.\.venv\Scripts\python.exe -m pip install -r requirements-dev.txt
+.\.venv\Scripts\python.exe -m pytest -q
+```
 
-Frontend terminal mein:
+In the frontend terminal:
 
-    npm run build
+```powershell
+npm run build
+```
 
-Tests alag temporary SQLite database banate hain; tumhari backend/notes.db ko nahin chhoote. Database manually banane ki zaroorat nahin. Backend shuru hotay hi schema.sql se table banti hai. Database file ko Git mein commit nahin karna.
+The tests create a separate temporary SQLite database and do not modify your `backend/notes.db` file. You do not need to create the database manually. When the backend starts, it creates the table using `schema.sql`. Do not commit the database file to Git.
 
-## Agar masla aaye
+## Troubleshooting
 
-- "python not recognized": START_HERE.md ka bundled Python path use karo. Long term mein Python install karke PATH mein add karo.
-- Health URL na khule: backend terminal mein error dekho; sahi folder backend hai aur port 8000 free hona chahiye.
-- Frontend par server error: backend terminal khula rakho, health URL test karo, phir page par Try again dabao.
-- npm PowerShell policy error: npm.cmd install ya npm.cmd run dev chalao.
-- Port 5173 ya 8000 already in use: purana server Ctrl+C se roko.
-- Browser mein save fail ho: form draft safe rehta hai. Backend chala kar Save note dobara dabao.
+- **"python not recognized":** Use the bundled Python path in `START_HERE.md`. For a permanent setup, install Python and add it to PATH.
+- **The health URL does not open:** Check the backend terminal for errors. Make sure you are running the command from the `backend` folder and that port 8000 is available.
+- **The frontend displays a server error:** Keep the backend terminal open, test the health URL, and then click **Try again** on the page.
+- **npm is blocked by a PowerShell execution policy:** Run `npm.cmd install` or `npm.cmd run dev`.
+- **Port 5173 or 8000 is already in use:** Stop the previous server by pressing **Ctrl+C** in its terminal.
+- **Saving fails in the browser:** Your form draft is preserved. Start the backend and click **Save note** again.
 
-## Agla learning step
+## Next Learning Step
 
-Pehle frontend/src/App.jsx mein saveNote function padho. Dekho browser POST/PUT request kaise bhejta hai. Phir backend/app/main.py mein wahi route dhoondo aur database.py ke SQLite connection tak flow trace karo.
+First, read the `saveNote` function in `frontend/src/App.jsx` to understand how the browser sends POST and PUT requests. Then find the corresponding route in `backend/app/main.py` and trace the flow to the SQLite connection in `database.py`.
